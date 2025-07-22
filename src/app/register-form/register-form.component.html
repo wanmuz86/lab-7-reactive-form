@@ -3,7 +3,13 @@
 <div>
     <label for="username">Username:</label>
     <input type="text" formControlName="username">
+    <div *ngIf="registerForm.get('username')?.pending">Checking Availability...</div>
+    <div *ngIf="registerForm.get('username')?.errors">Name not available</div>
 </div>
 <br/>
-<button type="submit">Submit</button>
+<!-- button is invalid when the form is invalid (validation wrong) 
+or pending -->
+<button type="submit" 
+[disabled]="registerForm.invalid ||
+registerForm.pending">Submit</button>
 </form>

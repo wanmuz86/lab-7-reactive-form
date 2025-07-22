@@ -8,8 +8,12 @@
     <div *ngIf="registerForm.get('username')?.errors">Name not available</div>
 </div>
 <div formArrayName="emails">
+    <label>Emails:</label>
+    <!-- Bring out the form from the form array via an *ngFor -->
     <div *ngFor="let emailCtrl of emails.controls; let i=index">
-        <input [formControlName]="i">
+        <!-- bring out the input -->
+        <input [formControlName]='i'>
+        <!-- bring out the button -->
         <button type="button" (click)="removeEmail(i)">Remove</button>
     </div>
     <button type="button" (click)="addEmail()">Add Email</button>

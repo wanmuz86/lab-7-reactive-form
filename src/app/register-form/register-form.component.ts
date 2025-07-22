@@ -58,16 +58,20 @@ export class RegisterFormComponent implements OnInit{
     console.log(this.registerForm.value);
   }
   get emails():FormArray{
+    // this.registerForm.get() return abstract control
+    // We cast it to FormArray, without casting we are unable to use the push 
+    // and removeAt methods
     return this.registerForm.get('emails') as FormArray;
   }
 
   // Everytime user press add, a new form controll will be added into the form array
-  // [email initialzed at '', with email format and required validation]
+  // [email is initialzed at '', each of the row will have validation: email format and required ]
   addEmail(){
     this.emails.push(this.formBuilder.control(
       '',[Validators.required, Validators.email], // Validators for email
     ))
   }
+  /// Everytime user press remove, the form of the given index will be removed
   removeEmail(index: number) {
     this.emails.removeAt(index); // Remove the email at the specified index
   }

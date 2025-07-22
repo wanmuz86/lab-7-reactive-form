@@ -3,8 +3,16 @@
 <div>
     <label for="username">Username:</label>
     <input type="text" formControlName="username">
+    
     <div *ngIf="registerForm.get('username')?.pending">Checking Availability...</div>
     <div *ngIf="registerForm.get('username')?.errors">Name not available</div>
+</div>
+<div formArrayName="emails">
+    <div *ngFor="let emailCtrl of emails.controls; let i=index">
+        <input [formControlName]="i">
+        <button type="button" (click)="removeEmail(i)">Remove</button>
+    </div>
+    <button type="button" (click)="addEmail()">Add Email</button>
 </div>
 <br/>
 <!-- button is invalid when the form is invalid (validation wrong) 

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AsyncValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AsyncValidatorFn, AbstractControl, ValidationErrors, FormArray } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { of,delay,map, Observable } from 'rxjs';
-import { NgIf } from '@angular/common';
+import { NgIf,NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-register-form',
-  imports: [ReactiveFormsModule,NgIf],
+  imports: [ReactiveFormsModule,NgIf, NgFor],
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.css'
 })
@@ -56,6 +56,20 @@ export class RegisterFormComponent implements OnInit{
 
   onSubmit(){
     console.log(this.registerForm.value);
+  }
+  get emails():FormArray{
+    return this.registerForm.get('emails') as FormArray;
+  }
+
+  // Everytime user press add, a new form controll will be added into the form array
+  // [email initialzed at '', with email format and required validation]
+  addEmail(){
+    this.emails.push(this.formBuilder.control(
+      '',[Validators.required, Validators.email], // Validators for email
+    ))
+  }
+  removeEmail(index: number) {
+    this.emails.removeAt(index); // Remove the email at the specified index
   }
 
 }

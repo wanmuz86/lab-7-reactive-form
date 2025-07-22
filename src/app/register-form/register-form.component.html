@@ -1,0 +1,9 @@
+<h2>Form Demo</h2>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<div>
+    <label for="username">Username:</label>
+    <input type="text" formControlName="username">
+</div>
+<br/>
+<button type="submit">Submit</button>
+</form>
